@@ -25,10 +25,11 @@ Homepage = "https://github.com/dhis2/open-climate-service-senorge-plugin"
 [project.entry-points."open_climate_service.plugins"]
 senorge = "open_climate_service_senorge_plugin"
 
-# Lets the plugin's own dev/CI environment resolve OCS from git. When an instance
-# depends on this plugin, the instance's own [tool.uv.sources] governs OCS.
-[tool.uv.sources]
-open-climate-service = { git = "https://github.com/dhis2/open-climate-service.git", branch = "main" }
+# `open-climate-service` is declared as a bare dependency with no VCS source pin: a
+# plugin must not dictate which OCS revision an instance runs — the consuming instance
+# supplies the source (git branch/tag/PyPI) via its own [tool.uv.sources]. (For local
+# dev/CI of this plugin alone, install OCS explicitly, e.g. `uv pip install
+# "open-climate-service @ git+https://github.com/dhis2/open-climate-service.git".)
 
 [tool.hatch.build.targets.wheel]
 packages = ["open_climate_service_senorge_plugin"]
