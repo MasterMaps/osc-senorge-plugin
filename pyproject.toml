@@ -1,0 +1,37 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "open-climate-service-senorge-plugin"
+version = "0.1.0"
+description = "seNorge 2018 daily temperature and precipitation as an installable Open Climate Service plugin."
+readme = "README.md"
+requires-python = ">=3.12"
+license = "BSD-3-Clause"
+authors = [{ name = "DHIS2 for Climate & Health" }]
+keywords = ["open-climate-service", "senorge", "climate", "dhis2"]
+dependencies = [
+    "open-climate-service",
+]
+
+[project.urls]
+Homepage = "https://github.com/dhis2/open-climate-service-senorge-plugin"
+"Open Climate Service" = "https://github.com/dhis2/open-climate-service"
+
+# Auto-discovered by Open Climate Service (dhis2/open-climate-service#118): the value
+# is this plugin's top-level import package. OCS loads its datasets/*.yaml templates,
+# and imports the ingestion plugin class by its dotted path at ingest time.
+[project.entry-points."open_climate_service.plugins"]
+senorge = "open_climate_service_senorge_plugin"
+
+# Lets the plugin's own dev/CI environment resolve OCS from git. When an instance
+# depends on this plugin, the instance's own [tool.uv.sources] governs OCS.
+[tool.uv.sources]
+open-climate-service = { git = "https://github.com/dhis2/open-climate-service.git", branch = "main" }
+
+[tool.hatch.build.targets.wheel]
+packages = ["open_climate_service_senorge_plugin"]
+
+[dependency-groups]
+dev = ["pytest>=8", "pyyaml>=6"]
