@@ -1,0 +1,105 @@
+# seNorge 2018 datasets.
+#
+# Source datasets are downloaded by SeNorgePlugin (in this folder). The derived
+# products (day-of-year normal, daily anomaly) are static outputs of OCS built-in
+# openEO workflows (climate_normal, climate_anomaly) run against the source data —
+# they ship here so the whole seNorge dataset family installs as one plugin.
+
+- id: senorge_temperature_daily
+  name: Daily mean temperature (seNorge 2018)
+  short_name: Mean temperature
+  standard_name: air_temperature
+  variable: tg
+  period_type: daily
+  sync:
+    kind: temporal
+    execution: append
+  extents:
+    spatial:
+      bbox: [4.5, 57.9, 31.1, 71.2]
+    temporal:
+      begin: "1957-01-01"
+      resolution: P1D
+  ingestion:
+    plugin: osc_senorge_plugin.datasets.senorge.SeNorgePlugin
+    params:
+      variable: tg
+  source_crs: EPSG:32633
+  units: degC
+  cell_methods: "time: mean"
+  resolution: 1 km x 1 km
+  source: seNorge 2018
+  source_url: https://thredds.met.no/thredds/catalog/senorge/seNorge_2018/Archive/catalog.html
+  display:
+    colormap: rdbu_r
+    range: [-30.0, 30.0]
+    nodata: -999.99
+
+- id: senorge_precipitation_daily
+  name: Daily precipitation (seNorge 2018)
+  short_name: Precipitation
+  standard_name: lwe_precipitation_rate
+  variable: rr
+  period_type: daily
+  sync:
+    kind: temporal
+    execution: append
+  extents:
+    spatial:
+      bbox: [4.5, 57.9, 31.1, 71.2]
+    temporal:
+      begin: "1957-01-01"
+      resolution: P1D
+  ingestion:
+    plugin: osc_senorge_plugin.datasets.senorge.SeNorgePlugin
+    params:
+      variable: rr
+  source_crs: EPSG:32633
+  units: mm/d
+  cell_methods: "time: mean"
+  resolution: 1 km x 1 km
+  source: seNorge 2018
+  source_url: https://thredds.met.no/thredds/catalog/senorge/seNorge_2018/Archive/catalog.html
+  display:
+    colormap: blues
+    range: [0.0, 50.0]
+    nodata: -9999.0
+
+# Day-of-year temperature normal (1991–2020) produced from the ingested
+# senorge_temperature_daily store by the `climate_normal` openEO workflow. Static
+# output template — no ingestion plugin; the data is written by save_result. The
+# reference period is encoded in the id; add a copy when a new period is adopted.
+- id: senorge_temperature_daily_normal_1991_2020
+  name: Daily mean temperature normal (seNorge 2018, 1991–2020)
+  short_name: Temperature daily normal
+  variable: tg
+  period_type: climatology
+  sync:
+    kind: static
+  source_crs: EPSG:32633
+  units: degC
+  resolution: 1 km x 1 km
+  source: Derived (climate_normal workflow)
+  display:
+    colormap: rdbu_r
+    range: [-30.0, 30.0]
+    nodata: -999.99
+
+# Daily temperature anomaly (observed - day-of-year normal) produced by the
+# `climate_anomaly` openEO workflow: pair senorge_temperature_daily with
+# senorge_temperature_daily_normal_1991_2020. Static output template; diverging
+# rdbu_r centred on zero (warm = red).
+- id: senorge_temperature_daily_anomaly_1991_2020
+  name: Daily mean temperature anomaly (seNorge 2018, vs 1991–2020 normal)
+  short_name: Temperature daily anomaly
+  variable: tg
+  period_type: daily
+  sync:
+    kind: static
+  source_crs: EPSG:32633
+  units: degC
+  source: Derived (climate_anomaly workflow)
+  display:
+    colormap: rdbu_r
+    range: [-5.0, 5.0]
+    nodata: -999.99

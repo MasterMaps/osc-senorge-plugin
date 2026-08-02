@@ -11,17 +11,19 @@ It is the reference implementation for OCS's installable-plugin mechanism
 
 ## Datasets
 
-| id | variable | units |
+| id | kind | notes |
 | --- | --- | --- |
-| `senorge_temperature_daily` | `tg` (daily mean temperature) | `degC` |
-| `senorge_precipitation_daily` | `rr` (daily precipitation) | `mm/d` |
+| `senorge_temperature_daily` | source (`tg`, `degC`) | downloaded by `SeNorgePlugin` |
+| `senorge_precipitation_daily` | source (`rr`, `mm/d`) | downloaded by `SeNorgePlugin` |
+| `senorge_temperature_daily_normal_1991_2020` | derived (static) | day-of-year normal via the `climate_normal` workflow |
+| `senorge_temperature_daily_anomaly_1991_2020` | derived (static) | daily anomaly via the `climate_anomaly` workflow |
 
 ## Install
 
 In an OCS instance, add the plugin and OCS auto-discovers it — no `plugins_dir` wiring:
 
 ```bash
-uv add open-climate-service-senorge-plugin
+uv add osc-senorge-plugin
 ```
 
 Its datasets then appear in `/datasets` and can be ingested like any built-in dataset:
@@ -32,22 +34,25 @@ curl -X POST http://127.0.0.1:8000/ingestions \
   -d '{"dataset_id": "senorge_temperature_daily", "temporal_extent": ["2024-01-01", "2024-01-31"]}'
 ```
 
-Derived products (climatological normals, anomalies) are **instance-specific** — they are static
-outputs of workflows run against these datasets and belong in the instance's own `plugins_dir`,
-not in this download plugin.
+The derived normal/anomaly datasets are **static** templates: their data is written by the OCS
+built-in `climate_normal` / `climate_anomaly` workflows run against the source datasets. They ship
+here so the whole seNorge family installs as one plugin.
 
 ## How it works
 
-The package declares an `open_climate_service.plugins` entry point pointing at its top-level module.
-OCS discovers all installed packages in that group and loads their `datasets/*.yaml` templates; the
-ingestion plugin class (`open_climate_service_senorge_plugin.senorge.SeNorgePlugin`) is imported by
-its dotted path at ingest time. `plugins_dir` continues to work and takes precedence on id conflicts.
+The package declares an `open_climate_service.plugins` entry point pointing at its top-level package.
+OCS discovers all installed packages in that group and loads their `datasets/*.yaml` templates (and,
+if present, their `processes/` and `workflows/`); the ingestion plugin class
+(`osc_senorge_plugin.datasets.senorge.SeNorgePlugin`) is imported by its dotted path at ingest time.
+`plugins_dir` continues to work and takes precedence on id conflicts.
 
 ## Layout
 
 ```
-open_climate_service_senorge_plugin/
-  senorge.py            # SeNorgePlugin (BaseDatasetPlugin)
+osc_senorge_plugin/
   datasets/
+    senorge.py          # SeNorgePlugin (BaseDatasetPlugin)
     senorge.yaml        # dataset templates
+  # processes/          # optional: @process-decorated callables
+  # workflows/          # optional: openEO UDP JSON graphs
 ```
