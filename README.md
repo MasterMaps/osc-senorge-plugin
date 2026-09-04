@@ -20,10 +20,18 @@ It is the reference implementation for OCS's installable-plugin mechanism
 
 ## Install
 
-In an OCS instance, add the plugin and OCS auto-discovers it — no `plugins_dir` wiring:
+In an OCS instance, add the plugin and OCS auto-discovers it — no `plugins_dir` wiring. Not published
+to PyPI, so install from git:
 
 ```bash
-uv add osc-senorge-plugin
+uv add "osc-senorge-plugin @ git+https://github.com/MasterMaps/osc-senorge-plugin.git"
+```
+
+Pin a branch or tag through the instance's own `[tool.uv.sources]` if you need one:
+
+```toml
+[tool.uv.sources]
+osc-senorge-plugin = { git = "https://github.com/MasterMaps/osc-senorge-plugin.git", branch = "main" }
 ```
 
 Its datasets then appear in `/datasets` and can be ingested like any built-in dataset:

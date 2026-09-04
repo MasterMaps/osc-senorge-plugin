@@ -16,7 +16,7 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/dhis2/osc-senorge-plugin"
+Homepage = "https://github.com/MasterMaps/osc-senorge-plugin"
 "Open Climate Service" = "https://github.com/dhis2/open-climate-service"
 
 # Auto-discovered by Open Climate Service (dhis2/open-climate-service#118): the value
