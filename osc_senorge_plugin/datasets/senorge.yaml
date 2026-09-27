@@ -30,6 +30,12 @@
   resolution: 1 km x 1 km
   source: seNorge 2018
   source_url: https://thredds.met.no/thredds/catalog/senorge/seNorge_2018/Archive/catalog.html
+  # MET Norway licenses seNorge under NLOD or CC BY 4.0, at the user's preference, crediting
+  # "MET Norway" as the source. CC BY 4.0 is declared because it has an SPDX identifier.
+  license: CC-BY-4.0
+  providers:
+    - name: MET Norway
+      url: https://www.met.no/
   display:
     colormap: rdbu_r
     range: [-30.0, 30.0]
@@ -60,6 +66,12 @@
   resolution: 1 km x 1 km
   source: seNorge 2018
   source_url: https://thredds.met.no/thredds/catalog/senorge/seNorge_2018/Archive/catalog.html
+  # MET Norway licenses seNorge under NLOD or CC BY 4.0, at the user's preference, crediting
+  # "MET Norway" as the source. CC BY 4.0 is declared because it has an SPDX identifier.
+  license: CC-BY-4.0
+  providers:
+    - name: MET Norway
+      url: https://www.met.no/
   display:
     colormap: blues
     range: [0.0, 50.0]
@@ -80,6 +92,12 @@
   units: degC
   resolution: 1 km x 1 km
   source: Derived (climate_normal workflow)
+  # MET Norway licenses seNorge under NLOD or CC BY 4.0, at the user's preference, crediting
+  # "MET Norway" as the source. CC BY 4.0 is declared because it has an SPDX identifier.
+  license: CC-BY-4.0
+  providers:
+    - name: MET Norway
+      url: https://www.met.no/
   display:
     colormap: rdbu_r
     range: [-30.0, 30.0]
@@ -99,6 +117,12 @@
   source_crs: EPSG:32633
   units: degC
   source: Derived (climate_anomaly workflow)
+  # MET Norway licenses seNorge under NLOD or CC BY 4.0, at the user's preference, crediting
+  # "MET Norway" as the source. CC BY 4.0 is declared because it has an SPDX identifier.
+  license: CC-BY-4.0
+  providers:
+    - name: MET Norway
+      url: https://www.met.no/
   display:
     colormap: rdbu_r
     range: [-5.0, 5.0]
