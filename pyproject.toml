@@ -20,7 +20,7 @@ Homepage = "https://github.com/MasterMaps/osc-senorge-plugin"
 "Open Climate Service" = "https://github.com/dhis2/open-climate-service"
 
 # Auto-discovered by Open Climate Service (dhis2/open-climate-service#118): the value
-# is this plugin's top-level import package. OCS loads its datasets/*.yaml templates,
+# is this plugin's top-level import package. OCS loads its rasters/*.yaml templates,
 # and imports the ingestion plugin class by its dotted path at ingest time.
 [project.entry-points."open_climate_service.plugins"]
 senorge = "osc_senorge_plugin"

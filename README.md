@@ -49,16 +49,16 @@ here so the whole seNorge family installs as one plugin.
 ## How it works
 
 The package declares an `open_climate_service.plugins` entry point pointing at its top-level package.
-OCS discovers all installed packages in that group and loads their `datasets/*.yaml` templates (and,
+OCS discovers all installed packages in that group and loads their `rasters/*.yaml` templates (and,
 if present, their `processes/` and `workflows/`); the ingestion plugin class
-(`osc_senorge_plugin.datasets.senorge.SeNorgePlugin`) is imported by its dotted path at ingest time.
+(`osc_senorge_plugin.rasters.senorge.SeNorgePlugin`) is imported by its dotted path at ingest time.
 `plugins_dir` continues to work and takes precedence on id conflicts.
 
 ## Layout
 
 ```
 osc_senorge_plugin/
-  datasets/
+  rasters/
     senorge.py          # SeNorgePlugin (BaseDatasetPlugin)
     senorge.yaml        # dataset templates
   # processes/          # optional: @process-decorated callables

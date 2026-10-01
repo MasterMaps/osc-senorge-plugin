@@ -21,7 +21,7 @@
       begin: "1957-01-01"
       resolution: P1D
   ingestion:
-    plugin: osc_senorge_plugin.datasets.senorge.SeNorgePlugin
+    plugin: osc_senorge_plugin.rasters.senorge.SeNorgePlugin
     params:
       variable: tg
   source_crs: EPSG:32633
@@ -57,7 +57,7 @@
       begin: "1957-01-01"
       resolution: P1D
   ingestion:
-    plugin: osc_senorge_plugin.datasets.senorge.SeNorgePlugin
+    plugin: osc_senorge_plugin.rasters.senorge.SeNorgePlugin
     params:
       variable: rr
   source_crs: EPSG:32633
